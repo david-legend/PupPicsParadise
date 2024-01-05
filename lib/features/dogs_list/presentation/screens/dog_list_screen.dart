@@ -7,6 +7,16 @@ import 'package:dog_images/l10n/app_localizations_context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+class DogType {
+  final String breed;
+  final String? subBreed;
+
+  DogType({
+    required this.breed,
+    this.subBreed,
+  });
+}
+
 class DogListScreen extends ConsumerStatefulWidget {
   const DogListScreen({super.key});
 
@@ -29,39 +39,53 @@ class _DogListScreenState extends ConsumerState<DogListScreen> {
         title: Text(context.loc.dogListTitle),
       ),
       body: allDogBreedsResult.when(
-        data: (allDogBreeds) {
+        data: (data) {
           return ListView.separated(
-            itemCount: allDogBreeds.data.length,
+            itemCount: data.breeds.length,
             itemBuilder: (context, index) {
-              final dogBreed = allDogBreeds.data.keys.elementAt(index);
-              final subBreeds = allDogBreeds.data[dogBreed] ?? [];
-
+              final dogBreed = data.breeds.keys.elementAt(index);
+              final subBreeds = data.breeds[dogBreed] ?? [];
+              final dogType = DogType(breed: dogBreed);
               return Card(
                 child: ExpansionTile(
                     title: DogListItem(
                       title: dogBreed,
                       onRandomImagePress: () {
                         Navigator.pushNamed(
-                            context, DogRandomImageScreen.routePath);
+                          context,
+                          DogRandomImageScreen.routePath,
+                          arguments: dogType,
+                        );
                       },
                       onImageListPress: () {
                         Navigator.pushNamed(
-                            context, DogImageListScreen.routePath);
+                          context,
+                          DogImageListScreen.routePath,
+                          arguments: dogType,
+                        );
                       },
                     ),
-                    children: subBreeds
-                        .map((subBreed) => DogListItem(
-                              title: subBreed,
-                              onRandomImagePress: () {
-                                Navigator.pushNamed(
-                                    context, DogRandomImageScreen.routePath);
-                              },
-                              onImageListPress: () {
-                                Navigator.pushNamed(
-                                    context, DogImageListScreen.routePath);
-                              },
-                            ))
-                        .toList()),
+                    children: subBreeds.map((subBreed) {
+                      final subBreedDogType =
+                          DogType(breed: dogBreed, subBreed: subBreed);
+                      return DogListItem(
+                        title: subBreed,
+                        onRandomImagePress: () {
+                          Navigator.pushNamed(
+                            context,
+                            DogRandomImageScreen.routePath,
+                            arguments: subBreedDogType,
+                          );
+                        },
+                        onImageListPress: () {
+                          Navigator.pushNamed(
+                            context,
+                            DogImageListScreen.routePath,
+                            arguments: subBreedDogType,
+                          );
+                        },
+                      );
+                    }).toList()),
               );
             },
             separatorBuilder: (context, index) {

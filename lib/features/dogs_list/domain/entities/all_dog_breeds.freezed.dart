@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AllDogBreeds {
-  Map<String, List<String>> get data => throw _privateConstructorUsedError;
+  Map<String, List<String>> get breeds => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AllDogBreedsCopyWith<AllDogBreeds> get copyWith =>
@@ -29,7 +29,7 @@ abstract class $AllDogBreedsCopyWith<$Res> {
           AllDogBreeds value, $Res Function(AllDogBreeds) then) =
       _$AllDogBreedsCopyWithImpl<$Res, AllDogBreeds>;
   @useResult
-  $Res call({Map<String, List<String>> data});
+  $Res call({Map<String, List<String>> breeds});
 }
 
 /// @nodoc
@@ -45,12 +45,12 @@ class _$AllDogBreedsCopyWithImpl<$Res, $Val extends AllDogBreeds>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = null,
+    Object? breeds = null,
   }) {
     return _then(_value.copyWith(
-      data: null == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
+      breeds: null == breeds
+          ? _value.breeds
+          : breeds // ignore: cast_nullable_to_non_nullable
               as Map<String, List<String>>,
     ) as $Val);
   }
@@ -64,7 +64,7 @@ abstract class _$$AllDogBreedsImplCopyWith<$Res>
       __$$AllDogBreedsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Map<String, List<String>> data});
+  $Res call({Map<String, List<String>> breeds});
 }
 
 /// @nodoc
@@ -78,12 +78,12 @@ class __$$AllDogBreedsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = null,
+    Object? breeds = null,
   }) {
     return _then(_$AllDogBreedsImpl(
-      data: null == data
-          ? _value._data
-          : data // ignore: cast_nullable_to_non_nullable
+      breeds: null == breeds
+          ? _value._breeds
+          : breeds // ignore: cast_nullable_to_non_nullable
               as Map<String, List<String>>,
     ));
   }
@@ -92,21 +92,21 @@ class __$$AllDogBreedsImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AllDogBreedsImpl implements _AllDogBreeds {
-  const _$AllDogBreedsImpl({final Map<String, List<String>> data = const {}})
-      : _data = data;
+  const _$AllDogBreedsImpl({final Map<String, List<String>> breeds = const {}})
+      : _breeds = breeds;
 
-  final Map<String, List<String>> _data;
+  final Map<String, List<String>> _breeds;
   @override
   @JsonKey()
-  Map<String, List<String>> get data {
-    if (_data is EqualUnmodifiableMapView) return _data;
+  Map<String, List<String>> get breeds {
+    if (_breeds is EqualUnmodifiableMapView) return _breeds;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_data);
+    return EqualUnmodifiableMapView(_breeds);
   }
 
   @override
   String toString() {
-    return 'AllDogBreeds(data: $data)';
+    return 'AllDogBreeds(breeds: $breeds)';
   }
 
   @override
@@ -114,12 +114,12 @@ class _$AllDogBreedsImpl implements _AllDogBreeds {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AllDogBreedsImpl &&
-            const DeepCollectionEquality().equals(other._data, _data));
+            const DeepCollectionEquality().equals(other._breeds, _breeds));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_breeds));
 
   @JsonKey(ignore: true)
   @override
@@ -129,11 +129,11 @@ class _$AllDogBreedsImpl implements _AllDogBreeds {
 }
 
 abstract class _AllDogBreeds implements AllDogBreeds {
-  const factory _AllDogBreeds({final Map<String, List<String>> data}) =
+  const factory _AllDogBreeds({final Map<String, List<String>> breeds}) =
       _$AllDogBreedsImpl;
 
   @override
-  Map<String, List<String>> get data;
+  Map<String, List<String>> get breeds;
   @override
   @JsonKey(ignore: true)
   _$$AllDogBreedsImplCopyWith<_$AllDogBreedsImpl> get copyWith =>

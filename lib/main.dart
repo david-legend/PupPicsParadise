@@ -1,3 +1,4 @@
+import 'package:dog_images/config/values/values.dart';
 import 'package:dog_images/features/dogs_list/presentation/screens/dog_image_list_screen.dart';
 import 'package:dog_images/features/dogs_list/presentation/screens/dog_random_image_screen.dart';
 import 'package:dog_images/features/dogs_list/presentation/screens/dog_list_screen.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(builder: (lContext) {
       return MaterialApp(
-        title: 'lContext.loc.appTitle',
+        title: AppStrings.appName,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -39,9 +40,29 @@ class MyApp extends StatelessWidget {
         initialRoute: DogListScreen.routePath,
         routes: {
           DogListScreen.routePath: (context) => const DogListScreen(),
-          DogImageListScreen.routePath: (context) => const DogImageListScreen(),
-          DogRandomImageScreen.routePath: (context) =>
-              const DogRandomImageScreen(),
+        },
+        onGenerateRoute: (settings) {
+          // Cast the arguments to the correct type
+          // and pass the arguments data to the correct screen.
+          if (settings.name == DogRandomImageScreen.routePath) {
+            return MaterialPageRoute(
+              builder: (context) {
+                return DogRandomImageScreen(
+                  dogType: settings.arguments as DogType,
+                );
+              },
+            );
+          }
+          if (settings.name == DogImageListScreen.routePath) {
+            return MaterialPageRoute(
+              builder: (context) {
+                return DogImageListScreen(
+                  dogType: settings.arguments as DogType,
+                );
+              },
+            );
+          }
+          return null;
         },
       );
     });

@@ -5,6 +5,7 @@ import 'package:dog_images/features/common/domain/network/error_handler.dart';
 import 'package:dog_images/features/common/domain/network/network_info.dart';
 import 'package:dog_images/features/dogs_list/data/data_sources/dog_images_remote_data_source.dart';
 import 'package:dog_images/features/dogs_list/domain/entities/all_dog_breeds.dart';
+import 'package:dog_images/features/dogs_list/domain/entities/dog_images_entities.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -23,11 +24,100 @@ class DogImagesRepository {
   Future<Either<Failure, AllDogBreeds>> getAllDogBreeds() async {
     if (await _networkInfo.isConnected) {
       try {
-        final authState = await _dogImagesRemoteDataSource.getAllDogBreeds();
+        final result = await _dogImagesRemoteDataSource.getAllDogBreeds();
 
-        return Right(AllDogBreeds(data: authState.message));
+        return Right(AllDogBreeds(breeds: result.message));
       } catch (error) {
-        debugPrint("resetPassword AuthRepository:: ${error.toString()}");
+        debugPrint(
+            "DogImagesRepository:: getAllDogBreeds:: ${error.toString()}");
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      return Left(DataSource.noInternetConnection.getFailure());
+    }
+  }
+
+  Future<Either<Failure, RandomDogImage>> getDogRandomImageByBreed(
+    String breed,
+  ) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final result =
+            await _dogImagesRemoteDataSource.getDogRandomImageByBreed(breed);
+
+        return Right(RandomDogImage(image: result.message));
+      } catch (error) {
+        debugPrint(
+          "DogImagesRepository:: getDogRandomImageByBreed:: ${error.toString()}",
+        );
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      return Left(DataSource.noInternetConnection.getFailure());
+    }
+  }
+
+  Future<Either<Failure, RandomDogImage>> getDogRandomImageBySubBreed({
+    required String breed,
+    required String subBreed,
+  }) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final result =
+            await _dogImagesRemoteDataSource.getDogRandomImageBySubBreed(
+          breed: breed,
+          subBreed: subBreed,
+        );
+
+        return Right(RandomDogImage(image: result.message));
+      } catch (error) {
+        debugPrint(
+          "DogImagesRepository:: getDogRandomImageBySubBreed:: ${error.toString()}",
+        );
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      return Left(DataSource.noInternetConnection.getFailure());
+    }
+  }
+
+  Future<Either<Failure, DogImages>> getDogImageListByBreed(
+    String breed,
+  ) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final result =
+            await _dogImagesRemoteDataSource.getDogImageListByBreed(breed);
+
+        return Right(DogImages(images: result.message));
+      } catch (error) {
+        debugPrint(
+          "DogImagesRepository:: getDogImageListByBreed:: ${error.toString()}",
+        );
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      return Left(DataSource.noInternetConnection.getFailure());
+    }
+  }
+
+  Future<Either<Failure, DogImages>> getDogImageListBySubBreed({
+    required String breed,
+    required String subBreed,
+  }) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final result =
+            await _dogImagesRemoteDataSource.getDogImageListBySubBreed(
+          breed: breed,
+          subBreed: subBreed,
+        );
+
+        return Right(DogImages(images: result.message));
+      } catch (error) {
+        debugPrint(
+          "DogImagesRepository:: getDogImageListBySubBreed:: ${error.toString()}",
+        );
         return Left(ErrorHandler.handle(error).failure);
       }
     } else {

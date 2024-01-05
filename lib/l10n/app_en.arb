@@ -1,0 +1,23 @@
+{
+  "language": "English",
+  "@language": {
+    "description": "Current Language"
+  },
+  "appTitle": "Dog Images",
+  "dogListTitle": "Dog List",
+
+  "success": "success",
+  "noContent": "success with not content",
+  "badRequestError": "bad request. try again later",
+  "forbiddenError": "forbidden request. try again later",
+  "unauthorizedError": "user unauthorized, try again later",
+  "notFoundError": "url not found, try again later",
+  "conflictError": "conflict found, try again later",
+  "internalServerError": "some thing went wrong, try again later",
+  "unknownError": "some thing went wrong, try again later",
+  "timeoutError": "time out, try again late",
+  "defaultError": "some thing went wrong, try again later",
+  "cacheError": "cache error, try again later",
+  "noInternetError": "Please check your internet connection",
+  "emptyError": "Data source is empty"
+}

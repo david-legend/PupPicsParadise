@@ -60,6 +60,7 @@ class _DogImageListScreenState extends ConsumerState<DogImageListScreen> {
                 itemCount: data.images.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
+
                   return ClipRRect(
                     borderRadius: Corners.smBorder,
                     child: CachedNetworkImage(

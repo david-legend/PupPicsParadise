@@ -15,15 +15,19 @@ class DogImageDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle? textStyle = Theme.of(context).textTheme.headlineSmall?.copyWith(
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+    );
     if (dogType.subBreed == null) {
       return Text(
         StringHelper.capitalizeFirstLetter(dogType.breed),
-        style: AppTextStyles.h7(context),
+        style: textStyle,
       );
     } else {
       return Text(
         "${StringHelper.capitalizeFirstLetter(dogType.breed!)}, ${StringHelper.capitalizeFirstLetter(dogType.subBreed!)}",
-        style: AppTextStyles.h7(context),
+        style: textStyle,
       );
     }
   }

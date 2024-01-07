@@ -11,7 +11,9 @@ class DogListItem extends StatelessWidget {
     this.height,
     this.onRandomImagePress,
     this.onImageListPress,
-    this.isSubBreed = false,
+    this.actionPadding = EdgeInsets.zero,
+    this.imageWidth = 40,
+    this.imageHeight = 40,
   });
 
   final String title;
@@ -20,25 +22,31 @@ class DogListItem extends StatelessWidget {
   final TextStyle? titleStyle;
   final VoidCallback? onRandomImagePress;
   final VoidCallback? onImageListPress;
-  final bool isSubBreed;
+  final EdgeInsetsGeometry actionPadding;
+  final double imageWidth;
+  final double imageHeight;
 
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       height: height,
       child: Row(
         children: [
-          Image.asset(imgSrc, width: 30, height: 30),
+          Image.asset(imgSrc, width: imageWidth, height: imageHeight),
           SizedBox(width: Insets.xs),
           Text(
             StringHelper.capitalizeFirstLetter(title),
-            style: titleStyle,
+            style: titleStyle ?? Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18),
           ),
           const Spacer(),
-          DogListItemActions(
-            isSubBreed: isSubBreed,
-            onImageListPress: onImageListPress,
-            onRandomImagePress: onRandomImagePress,
+
+          Padding(
+            padding: actionPadding,
+            child: DogListItemActions(
+              onImageListPress: onImageListPress,
+              onRandomImagePress: onRandomImagePress,
+            ),
           ),
         ],
       ),
@@ -51,12 +59,10 @@ class DogListItemActions extends StatelessWidget {
     super.key,
     this.onImageListPress,
     this.onRandomImagePress,
-    this.isSubBreed = false,
   });
 
   final VoidCallback? onRandomImagePress;
   final VoidCallback? onImageListPress;
-  final bool isSubBreed;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +74,7 @@ class DogListItemActions extends StatelessWidget {
           child: IconButton(
             onPressed: onRandomImagePress,
             padding: EdgeInsets.zero,
-            icon: const Icon(Icons.photo),
+            icon: const Icon(Icons.photo_outlined),
           ),
         ),
         SizedBox(width: Insets.sm),
@@ -78,7 +84,7 @@ class DogListItemActions extends StatelessWidget {
           child: IconButton(
             onPressed: onImageListPress,
             padding: EdgeInsets.zero,
-            icon: const Icon(Icons.photo_library_outlined),
+            icon: const Icon(Icons.camera),
           ),
         ),
       ],

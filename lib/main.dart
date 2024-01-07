@@ -6,6 +6,7 @@ import 'package:dog_images/l10n/app_localizations.dart';
 import 'package:dog_images/utils/state_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(
@@ -32,8 +33,13 @@ class MyApp extends StatelessWidget {
         title: AppStrings.appName,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
           useMaterial3: true,
+          textTheme:  TextTheme(
+            headlineSmall: GoogleFonts.karla(),
+            titleMedium: GoogleFonts.karla(),
+            titleLarge: GoogleFonts.karla(),
+          )
         ),
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: AppLocalizations.localizationsDelegates,

@@ -41,13 +41,20 @@ class _DogListScreenState extends ConsumerState<DogListScreen> {
       body: allDogBreedsResult.when(
         data: (data) {
           return ListView.separated(
+            padding: EdgeInsets.symmetric(horizontal: Insets.paddingSm),
             itemCount: data.breeds.length,
             itemBuilder: (context, index) {
               final dogBreed = data.breeds.keys.elementAt(index);
               final subBreeds = data.breeds[dogBreed] ?? [];
               final dogType = DogType(breed: dogBreed);
               return Card(
+                color: const Color(0xFFDFD1EE),
                 child: ExpansionTile(
+                    trailing:
+                        subBreeds.isEmpty ? const SizedBox.shrink() : null,
+                    backgroundColor: AppColors.primaryContainer,
+                    collapsedShape: Shapes.shapeBorderSm,
+                    shape: Shapes.shapeBorderSm,
                     title: DogListItem(
                       title: dogBreed,
                       onRandomImagePress: () {
@@ -68,22 +75,27 @@ class _DogListScreenState extends ConsumerState<DogListScreen> {
                     children: subBreeds.map((subBreed) {
                       final subBreedDogType =
                           DogType(breed: dogBreed, subBreed: subBreed);
-                      return DogListItem(
-                        title: subBreed,
-                        onRandomImagePress: () {
-                          Navigator.pushNamed(
-                            context,
-                            DogRandomImageScreen.routePath,
-                            arguments: subBreedDogType,
-                          );
-                        },
-                        onImageListPress: () {
-                          Navigator.pushNamed(
-                            context,
-                            DogImageListScreen.routePath,
-                            arguments: subBreedDogType,
-                          );
-                        },
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 12.0),
+                        child: DogListItem(
+                          title: subBreed,
+                          height: 36,
+                          imgSrc: Images.icDogPaw,
+                          onRandomImagePress: () {
+                            Navigator.pushNamed(
+                              context,
+                              DogRandomImageScreen.routePath,
+                              arguments: subBreedDogType,
+                            );
+                          },
+                          onImageListPress: () {
+                            Navigator.pushNamed(
+                              context,
+                              DogImageListScreen.routePath,
+                              arguments: subBreedDogType,
+                            );
+                          },
+                        ),
                       );
                     }).toList()),
               );

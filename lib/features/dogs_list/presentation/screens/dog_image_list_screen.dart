@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dog_images/config/values/values.dart';
 import 'package:dog_images/features/dogs_list/application/dog_image_list_controller.dart';
 import 'package:dog_images/features/dogs_list/domain/entities/dog_images_entities.dart';
 import 'package:dog_images/features/dogs_list/presentation/screens/dog_list_screen.dart';
+import 'package:dog_images/features/dogs_list/presentation/widgets/dog_image_description.dart';
+import 'package:dog_images/features/dogs_list/presentation/widgets/error_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class DogImageListScreen extends ConsumerStatefulWidget {
   const DogImageListScreen({
@@ -28,20 +32,8 @@ class _DogImageListScreenState extends ConsumerState<DogImageListScreen> {
 
   @override
   void initState() {
-    final data = widget.dogType;
     Future.microtask(() {
-      if (data.subBreed == null) {
-        ref
-            .read(dogImageListControllerProvider.notifier)
-            .getDogImageListByBreed(data.breed);
-      } else {
-        ref
-            .read(dogImageListControllerProvider.notifier)
-            .getDogImageListBySubBreed(
-              breed: data.breed,
-              subBreed: data.subBreed!,
-            );
-      }
+      fetchDogImageList();
     });
     super.initState();
   }
@@ -51,7 +43,7 @@ class _DogImageListScreenState extends ConsumerState<DogImageListScreen> {
     final imageListResult = ref.watch(dogImageListControllerProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Image List"),
+        title: DogImageDescription(dogType: widget.dogType),
         leading: BackButton(
           onPressed: () {
             Navigator.pop(context);
@@ -61,34 +53,43 @@ class _DogImageListScreenState extends ConsumerState<DogImageListScreen> {
       body: imageListResult.when(
         data: (data) {
           if (data.images.isNotEmpty) {
-            return GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 4.0,
-                mainAxisSpacing: 4.0,
+            return Padding(
+              padding: EdgeInsets.all(Insets.xs),
+              child: MasonryGridView.count(
+                crossAxisCount: 3,
+                itemCount: data.images.length,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return ClipRRect(
+                    borderRadius: Corners.smBorder,
+                    child: CachedNetworkImage(
+                      imageUrl: data.images[index],
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) {
+                        return Image.asset(
+                          Images.imagePlaceholder,
+                          fit: BoxFit.cover,
+                        );
+                      },
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
+                  );
+                },
+                mainAxisSpacing: Insets.xs,
+                crossAxisSpacing: Insets.xs,
               ),
-              itemCount: data.images.length,
-              itemBuilder: (context, index) {
-                return CachedNetworkImage(
-                  imageUrl: data.images[index],
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: CircularProgressIndicator(
-                        value: downloadProgress.progress),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                );
-              },
             );
           }
           return const Text("No Images for this breed");
         },
         error: (error, stackTrace) {
-          return const Center(
-            child: Text("Retry"),
+          //TODO:: parse and present error in a proper way
+          return ErrorHandler(
+            message: error.toString(),
+            handler: () {
+              fetchDogImageList();
+            },
           );
         },
         loading: () {
@@ -98,5 +99,21 @@ class _DogImageListScreenState extends ConsumerState<DogImageListScreen> {
         },
       ),
     );
+  }
+
+  void fetchDogImageList() {
+    final data = widget.dogType;
+    if (data.subBreed == null) {
+      ref
+          .read(dogImageListControllerProvider.notifier)
+          .getDogImageListByBreed(data.breed);
+    } else {
+      ref
+          .read(dogImageListControllerProvider.notifier)
+          .getDogImageListBySubBreed(
+            breed: data.breed,
+            subBreed: data.subBreed!,
+          );
+    }
   }
 }

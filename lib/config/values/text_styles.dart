@@ -26,19 +26,32 @@ class AppTextStyles {
   }
 
   static TextStyle? h7(BuildContext context) {
-    return Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 28);
+    return Theme.of(context).textTheme.headlineSmall?.copyWith(
+          fontSize: 24,
+          // color: AppColors.white,
+          fontWeight: FontWeight.w700,
+        );
   }
 
   static TextStyle? h8(BuildContext context) {
-    return Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 26);
+    return Theme.of(context).textTheme.headlineSmall?.copyWith(
+          fontSize: 26,
+          color: AppColors.white,
+        );
   }
 
   static TextStyle? h9(BuildContext context) {
-    return Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 25);
+    return Theme.of(context).textTheme.headlineSmall?.copyWith(
+          fontSize: 25,
+          color: AppColors.white,
+        );
   }
 
   static TextStyle? h10(BuildContext context) {
-    return Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 20);
+    return Theme.of(context).textTheme.headlineMedium?.copyWith(
+          fontSize: 20,
+          color: AppColors.white,
+        );
   }
 
   static TextStyle? h11(BuildContext context) {
@@ -170,37 +183,37 @@ class AppTextStyles {
 
   static TextStyle? b2U(BuildContext context) {
     return Theme.of(context).textTheme.bodyMedium?.copyWith(
-      fontSize: 18,
-      decoration: TextDecoration.underline,
-    );
+          fontSize: 18,
+          decoration: TextDecoration.underline,
+        );
   }
 
   static TextStyle? b3U(BuildContext context) {
     return Theme.of(context).textTheme.bodySmall?.copyWith(
-      fontSize: 16,
-      decoration: TextDecoration.underline,
-    );
+          fontSize: 16,
+          decoration: TextDecoration.underline,
+        );
   }
 
   static TextStyle? b4U(BuildContext context) {
     return Theme.of(context).textTheme.bodySmall?.copyWith(
-      fontSize: 14,
-      decoration: TextDecoration.underline,
-    );
+          fontSize: 14,
+          decoration: TextDecoration.underline,
+        );
   }
 
   static TextStyle? b5U(BuildContext context) {
     return Theme.of(context).textTheme.bodySmall?.copyWith(
-      fontSize: 13,
-      decoration: TextDecoration.underline,
-    );
+          fontSize: 13,
+          decoration: TextDecoration.underline,
+        );
   }
 
   static TextStyle? b6U(BuildContext context) {
     return Theme.of(context).textTheme.bodySmall?.copyWith(
-      fontSize: 12,
-      decoration: TextDecoration.underline,
-    );
+          fontSize: 12,
+          decoration: TextDecoration.underline,
+        );
   }
 
   static TextStyle? b1I(BuildContext context) {

@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dog_images/config/values/values.dart';
 import 'package:dog_images/features/dogs_list/application/dog_random_image_controller.dart';
 import 'package:dog_images/features/dogs_list/domain/entities/dog_images_entities.dart';
 import 'package:dog_images/features/dogs_list/presentation/screens/dog_list_screen.dart';
+import 'package:dog_images/features/dogs_list/presentation/widgets/dog_image_description.dart';
+import 'package:dog_images/features/dogs_list/presentation/widgets/error_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-
 
 class DogRandomImageScreen extends ConsumerStatefulWidget {
   const DogRandomImageScreen({
@@ -31,32 +32,22 @@ class _DogRandomImageScreenState extends ConsumerState<DogRandomImageScreen> {
 
   @override
   void initState() {
-    final data = widget.dogType;
     Future.microtask(() {
-      if (data.subBreed == null) {
-        ref
-            .read(dogRandomImageControllerProvider.notifier)
-            .getDogRandomImageByBreed(data.breed);
-      } else {
-        ref
-            .read(dogRandomImageControllerProvider.notifier)
-            .getDogRandomImageBySubBreed(
-              breed: data.breed,
-              subBreed: data.subBreed!,
-            );
-      }
+      fetchRandomImageOfDog();
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     final randomImageResult = ref.watch(
       dogRandomImageControllerProvider,
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text("Random"),
+        title: DogImageDescription(dogType: widget.dogType),
         leading: BackButton(
           onPressed: () {
             Navigator.pop(context);
@@ -66,44 +57,80 @@ class _DogRandomImageScreenState extends ConsumerState<DogRandomImageScreen> {
       body: randomImageResult.when(
         data: (data) {
           if (data.image != null && data.image!.isNotEmpty) {
-            return Column(
+            return Stack(
               children: [
                 CachedNetworkImage(
                   imageUrl: data.image!,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      CircularProgressIndicator(
-                    value: downloadProgress.progress,
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    ref
-                        .read(
-                          dogRandomImageControllerProvider.notifier,
-                        )
-                        .getDogRandomImageByBreed(
-                          widget.dogType.breed,
-                        );
+                  width: screenWidth,
+                  height: screenHeight,
+                  fit: BoxFit.fitHeight,
+                  progressIndicatorBuilder: (context, url, downloadProgress) {
+                    return Center(
+                      child: SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: CircularProgressIndicator(
+                          value: downloadProgress.progress,
+                        ),
+                      ),
+                    );
                   },
-                  child: Text("reset"),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ],
             );
           }
-          return Text("Show broken image here");
+          return Image.asset(
+            Images.imagePlaceholder,
+            fit: BoxFit.cover,
+            width: screenWidth,
+            height: screenHeight,
+          );
         },
         error: (error, stackTrace) {
-          return const Center(
-            child: Text("Retry"),
+          //TODO:: parse and present error in a proper way
+          return ErrorHandler(
+            message: error.toString(),
+            handler: () {
+              fetchRandomImageOfDog();
+            },
           );
         },
         loading: () {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: SizedBox(
+              width: 40,
+              height: 40,
+              child: CircularProgressIndicator(),
+            ),
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          ref
+              .read(dogRandomImageControllerProvider.notifier)
+              .getDogRandomImageByBreed(widget.dogType.breed);
+        },
+        child: const Icon(Icons.shuffle_outlined),
+      ),
     );
   }
+
+  fetchRandomImageOfDog() {
+    final data = widget.dogType;
+    if (data.subBreed == null) {
+      ref
+          .read(dogRandomImageControllerProvider.notifier)
+          .getDogRandomImageByBreed(data.breed);
+    } else {
+      ref
+          .read(dogRandomImageControllerProvider.notifier)
+          .getDogRandomImageBySubBreed(
+            breed: data.breed,
+            subBreed: data.subBreed!,
+          );
+    }
+  }
 }
+

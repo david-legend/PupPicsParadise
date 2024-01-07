@@ -34,9 +34,23 @@ class _DogListScreenState extends ConsumerState<DogListScreen> {
   @override
   Widget build(BuildContext context) {
     final allDogBreedsResult = ref.watch(dogListControllerProvider);
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
-        title: Text(context.loc.dogListTitle),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(Images.icLogo, width: 40, height: 40),
+            SizedBox(width: Insets.xs),
+            Text(
+              context.loc.dogListTitle,
+              style: textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
       ),
       body: allDogBreedsResult.when(
         data: (data) {
@@ -48,11 +62,11 @@ class _DogListScreenState extends ConsumerState<DogListScreen> {
               final subBreeds = data.breeds[dogBreed] ?? [];
               final dogType = DogType(breed: dogBreed);
               return Card(
-                color: const Color(0xFFDFD1EE),
+                color: const Color(0xFFD9E4F9),
                 child: ExpansionTile(
                     trailing:
                         subBreeds.isEmpty ? const SizedBox.shrink() : null,
-                    backgroundColor: AppColors.primaryContainer,
+                    // backgroundColor: AppColors.primaryContainer,
                     collapsedShape: Shapes.shapeBorderSm,
                     shape: Shapes.shapeBorderSm,
                     title: DogListItem(

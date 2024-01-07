@@ -3,8 +3,8 @@
   "@language": {
     "description": "Current Language"
   },
-  "appTitle": "Dog Images",
-  "dogListTitle": "Dog List",
+  "appTitle": "PupPic Paradise",
+  "dogListTitle": "PupPic Paradise",
 
   "success": "success",
   "noContent": "success with not content",

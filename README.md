@@ -1,7 +1,7 @@
 # dog_images
 
 <h1 align="center">
- PupPic Paradise 
+ PupPics Paradise 
 </h1>
 
 <p align="center">

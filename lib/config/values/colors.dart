@@ -9,12 +9,7 @@ class AppColors {
   static const white = Color(0xFFFFFFFF);
 
   // PrimaryColors
-  // static const primary = Color(0xFFF3869E);
-  // static const primary = Color(0xFF06022C);
   static const primary = Colors.purple;
   static const primaryContainer = Color(0xFFCFAAFF);
   static const onPrimary = Color(0xFFFFFFFF);
-  // static const primaryContainer = Color(0xFF7340DA);
-  // static const onPrimaryContainer = Color(0xFFFFFFFF);
-  // static const accent = Color(0xFF282828);
 }

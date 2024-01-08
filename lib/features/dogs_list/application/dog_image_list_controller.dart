@@ -10,9 +10,7 @@ part 'dog_image_list_controller.g.dart';
 class DogImageListController extends _$DogImageListController {
   @override
   FutureOr<DogImages> build() async {
-    state = const AsyncData(DogImages());
-    await getDogImageListByBreed("");
-    return state.value ?? const DogImages();
+    return const DogImages();
   }
 
   /// makes call through the repository to

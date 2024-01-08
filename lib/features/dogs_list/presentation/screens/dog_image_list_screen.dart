@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dog_images/config/values/values.dart';
+import 'package:dog_images/features/common/domain/failures/failure.dart';
 import 'package:dog_images/features/dogs_list/application/dog_image_list_controller.dart';
 import 'package:dog_images/features/dogs_list/domain/entities/dog_images_entities.dart';
 import 'package:dog_images/features/dogs_list/presentation/screens/dog_list_screen.dart';
@@ -40,9 +41,23 @@ class _DogImageListScreenState extends ConsumerState<DogImageListScreen> {
     super.initState();
   }
 
+  void onError() {
+    ref.listen<AsyncValue<void>>(
+      dogImageListControllerProvider,
+      (_, state) => state.whenOrNull(
+        error: (error, s) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text((error as Failure).message)),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final imageListResult = ref.watch(dogImageListControllerProvider);
+    onError();
+    imageListResult = ref.watch(dogImageListControllerProvider);
     return Scaffold(
       appBar: AppBar(
         title: DogImageDescription(dogType: widget.dogType),
@@ -54,37 +69,32 @@ class _DogImageListScreenState extends ConsumerState<DogImageListScreen> {
       ),
       body: imageListResult.when(
         data: (data) {
-          if (data.images.isNotEmpty) {
-            return Padding(
-              padding: EdgeInsets.all(Insets.xs),
-              child: MasonryGridView.count(
-                crossAxisCount: 3,
-                itemCount: data.images.length,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-
-                  return ClipRRect(
-                    borderRadius: Corners.smBorder,
-                    child: CachedNetworkImage(
-                      imageUrl: data.images[index],
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) {
-                        return Image.asset(
-                          Images.imagePlaceholder,
-                          fit: BoxFit.cover,
-                        );
-                      },
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                    ),
-                  );
-                },
-                mainAxisSpacing: Insets.xs,
-                crossAxisSpacing: Insets.xs,
-              ),
-            );
-          }
-          return const Text("No Images for this breed");
+          return Padding(
+            padding: EdgeInsets.all(Insets.xs),
+            child: MasonryGridView.count(
+              crossAxisCount: 3,
+              itemCount: data.images.length,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return ClipRRect(
+                  borderRadius: Corners.smBorder,
+                  child: CachedNetworkImage(
+                    imageUrl: data.images[index],
+                    progressIndicatorBuilder: (context, url, downloadProgress) {
+                      return Image.asset(
+                        Images.imagePlaceholder,
+                        fit: BoxFit.cover,
+                      );
+                    },
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
+                );
+              },
+              mainAxisSpacing: Insets.xs,
+              crossAxisSpacing: Insets.xs,
+            ),
+          );
         },
         error: (error, stackTrace) {
           //TODO:: parse and present error in a proper way

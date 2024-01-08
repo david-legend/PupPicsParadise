@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dog_images/config/values/values.dart';
+import 'package:dog_images/features/common/domain/failures/failure.dart';
 import 'package:dog_images/features/dogs_list/application/dog_random_image_controller.dart';
 import 'package:dog_images/features/dogs_list/domain/entities/dog_images_entities.dart';
 import 'package:dog_images/features/dogs_list/presentation/screens/dog_list_screen.dart';
@@ -7,6 +8,8 @@ import 'package:dog_images/features/dogs_list/presentation/widgets/dog_image_des
 import 'package:dog_images/features/dogs_list/presentation/widgets/error_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+const progressIndicatorSize = 40.0;
 
 /// [DogRandomImageScreen] renders random images of dogs breeds and subBreeds which is fetched from API
 class DogRandomImageScreen extends ConsumerStatefulWidget {
@@ -40,13 +43,27 @@ class _DogRandomImageScreenState extends ConsumerState<DogRandomImageScreen> {
     super.initState();
   }
 
+  void onError() {
+    ref.listen<AsyncValue<void>>(
+      dogRandomImageControllerProvider,
+      (_, state) => state.whenOrNull(
+        error: (error, s) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text((error as Failure).message)),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-    final randomImageResult = ref.watch(
+    onError();
+    randomImageResult = ref.watch(
       dogRandomImageControllerProvider,
     );
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: DogImageDescription(dogType: widget.dogType),
@@ -69,8 +86,8 @@ class _DogRandomImageScreenState extends ConsumerState<DogRandomImageScreen> {
                   progressIndicatorBuilder: (context, url, downloadProgress) {
                     return Center(
                       child: SizedBox(
-                        width: 40,
-                        height: 40,
+                        width: progressIndicatorSize,
+                        height: progressIndicatorSize,
                         child: CircularProgressIndicator(
                           value: downloadProgress.progress,
                         ),
@@ -101,8 +118,8 @@ class _DogRandomImageScreenState extends ConsumerState<DogRandomImageScreen> {
         loading: () {
           return const Center(
             child: SizedBox(
-              width: 40,
-              height: 40,
+              width: progressIndicatorSize,
+              height: progressIndicatorSize,
               child: CircularProgressIndicator(),
             ),
           );
@@ -138,4 +155,3 @@ class _DogRandomImageScreenState extends ConsumerState<DogRandomImageScreen> {
     }
   }
 }
-

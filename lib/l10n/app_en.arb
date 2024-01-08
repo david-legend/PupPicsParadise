@@ -5,6 +5,7 @@
   },
   "appTitle": "PupPic Paradise",
   "dogListTitle": "PupPic Paradise",
+  "retry": "Retry",
 
   "success": "success",
   "noContent": "success with not content",

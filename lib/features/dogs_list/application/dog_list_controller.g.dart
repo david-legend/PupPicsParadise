@@ -6,9 +6,11 @@ part of 'dog_list_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dogListControllerHash() => r'f655275e4ec571e6aaaa8eeef1d8f49a7918f88b';
+String _$dogListControllerHash() => r'c2c51e40110a79f44ad2a96dd42432bc5d809bb7';
 
-/// See also [DogListController].
+/// controller for handling network calls to fetch all dog breeds and subBreeds
+///
+/// Copied from [DogListController].
 @ProviderFor(DogListController)
 final dogListControllerProvider =
     AsyncNotifierProvider<DogListController, AllDogBreeds>.internal(

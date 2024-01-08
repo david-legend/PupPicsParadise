@@ -7,9 +7,9 @@ part of 'dog_random_image_controller.dart';
 // **************************************************************************
 
 String _$dogRandomImageControllerHash() =>
-    r'474e613b963c170a1e007bf2adb0ddd952c8d5ba';
-
-/// See also [DogRandomImageController].
+    r'474e613b963c170a1e007bf2adb0ddd952c8d5ba'; //// controller for handling network calls to fetch random images
+///
+/// Copied from [DogRandomImageController].
 @ProviderFor(DogRandomImageController)
 final dogRandomImageControllerProvider = AutoDisposeAsyncNotifierProvider<
     DogRandomImageController, RandomDogImage>.internal(

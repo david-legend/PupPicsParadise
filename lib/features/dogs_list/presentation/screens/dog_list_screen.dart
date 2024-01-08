@@ -1,8 +1,11 @@
 import 'package:dog_images/config/values/values.dart';
+import 'package:dog_images/features/common/domain/failures/failure.dart';
+import 'package:dog_images/features/dogs_list/domain/entities/all_dog_breeds.dart';
 import 'package:dog_images/features/dogs_list/presentation/screens/dog_image_list_screen.dart';
 import 'package:dog_images/features/dogs_list/presentation/screens/dog_random_image_screen.dart';
 import 'package:dog_images/features/dogs_list/application/dog_list_controller.dart';
 import 'package:dog_images/features/dogs_list/presentation/widgets/dog_list_item.dart';
+import 'package:dog_images/features/dogs_list/presentation/widgets/error_handler.dart';
 import 'package:dog_images/l10n/app_localizations_context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,13 +36,38 @@ class DogListScreen extends ConsumerStatefulWidget {
 }
 
 class _DogListScreenState extends ConsumerState<DogListScreen> {
+  late AsyncValue<AllDogBreeds> allDogBreedsResult;
+
+  @override
+  void initState() {
+    /// makes initial call to fetch all Dog breeds and subBreeds
+    Future.microtask(() {
+      fetchAllDogBreeds();
+    });
+    super.initState();
+  }
+
+  void onError() {
+    ref.listen<AsyncValue<void>>(
+      dogListControllerProvider,
+      (_, state) => state.whenOrNull(
+        error: (error, s) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text((error as Failure).message)),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    onError();
     const breedPadding =
         EdgeInsets.only(left: 12, top: 8, bottom: 8, right: 10);
     const subBreedPadding =
         EdgeInsets.only(left: 12, top: 8, bottom: 8, right: 50);
-    final allDogBreedsResult = ref.watch(dogListControllerProvider);
+    allDogBreedsResult = ref.watch(dogListControllerProvider);
 
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
@@ -115,8 +143,11 @@ class _DogListScreenState extends ConsumerState<DogListScreen> {
           );
         },
         error: (error, stacktrace) {
-          return const Center(
-            child: Text("Retry"),
+          return ErrorHandler(
+            message: (error as Failure).message,
+            handler: () {
+              fetchAllDogBreeds();
+            },
           );
         },
         loading: () {
@@ -142,5 +173,10 @@ class _DogListScreenState extends ConsumerState<DogListScreen> {
       DogImageListScreen.routePath,
       arguments: dogType,
     );
+  }
+
+  /// sends an event which triggers a call to fetch all dog breed asn subBreeds
+  void fetchAllDogBreeds() {
+    ref.read(dogListControllerProvider.notifier).getAllDogBreeds();
   }
 }

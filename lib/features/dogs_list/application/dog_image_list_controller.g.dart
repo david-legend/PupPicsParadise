@@ -7,9 +7,12 @@ part of 'dog_image_list_controller.dart';
 // **************************************************************************
 
 String _$dogImageListControllerHash() =>
-    r'79f6b8c52a2217426f107783b73661ec85f5beed';
+    r'1f3906514a9b91ae00f5731d40eecf18a6a9c8c1';
 
-/// See also [DogImageListController].
+/// controller for handling network calls to
+/// fetch image list of dogs based on their breed and subBreeds
+///
+/// Copied from [DogImageListController].
 @ProviderFor(DogImageListController)
 final dogImageListControllerProvider = AutoDisposeAsyncNotifierProvider<
     DogImageListController, DogImages>.internal(

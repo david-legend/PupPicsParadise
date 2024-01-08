@@ -5,7 +5,7 @@
 </h1>
 
 <p align="center">
-    PupPic Paradise is a handy app that is used to view random images and image list of Dogs based on the selected breeds and subBreeds.
+    PupPic Paradise is a handy app that is used to view random images and image list of Dogs based on the selected breeds and sub-breeds.
 </p>
 
 <br/>
@@ -27,10 +27,10 @@
 
 ### Dogs List Screen
 
-This screen renders a list of dog breeds and sub breeds. If a dog breed has a sub breed, the card can be expanded to view the sub breeds.   
-On each bread and side breed, there are 2 icons:
-- the first icon (photo icon) navigates you to screen which shows you a random image of the breed/subBreed selected.
-- the second icon (camera icon) navigates you to screen which shows you an image list of the breed/subBreed selected.
+This screen renders a list of dog breeds and sub-breeds. If a dog breed has a sub-breed, the card can be expanded to view the sub-breeds.   
+On each breed and sub-breed item, there are 2 icons:
+- the first icon (camera icon) navigates you to screen which shows you a random image of the breed/sub-breed selected.
+- the second icon (auto awesome icon) navigates you to screen which shows you an image list of the breed/sub-breed selected.
 
 ![Screenshot](assets/screenshots/dog_list_screen.png)
 
@@ -38,7 +38,7 @@ On each bread and side breed, there are 2 icons:
 
 ### Random Dog Screen
 
-This screen renders a random image of the breed/subBreed selected from the [Dogs List Screen].   
+This screen renders a random image of the breed/sub-breed selected from the [Dogs List Screen].   
 There is also a floating action button to request another random image.
 
 ![Screenshot](assets/screenshots/random_dog_screen.png)
@@ -48,7 +48,7 @@ There is also a floating action button to request another random image.
 
 ### Image List Screen
 
-This screen renders an image list of the breed/subBreed selected from the [Dogs List Screen].  
+This screen renders an image list of the breed/sub-breed selected from the [Dogs List Screen].  
 
 
 ![Screenshot](assets/screenshots/image_list_screen.png)

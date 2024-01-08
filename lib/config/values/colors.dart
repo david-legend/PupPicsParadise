@@ -1,6 +1,5 @@
 part of values;
 
-
 /// colors used across the app
 class AppColors {
   // Background Colors
@@ -11,14 +10,11 @@ class AppColors {
 
   // PrimaryColors
   // static const primary = Color(0xFFF3869E);
-  static const primary = Color(0xFF06022C);
+  // static const primary = Color(0xFF06022C);
+  static const primary = Colors.purple;
+  static const primaryContainer = Color(0xFFCFAAFF);
   static const onPrimary = Color(0xFFFFFFFF);
-  static const primaryContainer = Color(0xFF7340DA);
-  static const onPrimaryContainer = Color(0xFFFFFFFF);
-  static const accent = Color(0xFF282828);
-
-
-
-
+  // static const primaryContainer = Color(0xFF7340DA);
+  // static const onPrimaryContainer = Color(0xFFFFFFFF);
+  // static const accent = Color(0xFF282828);
 }
-

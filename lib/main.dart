@@ -33,14 +33,16 @@ class MyApp extends StatelessWidget {
         title: AppStrings.appName,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
-          useMaterial3: true,
-          textTheme:  TextTheme(
-            headlineSmall: GoogleFonts.karla(),
-            titleMedium: GoogleFonts.karla(),
-            titleLarge: GoogleFonts.karla(),
-          )
-        ),
+            colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
+            appBarTheme: const AppBarTheme(
+              backgroundColor: AppColors.primaryContainer,
+            ),
+            useMaterial3: true,
+            textTheme: TextTheme(
+              headlineSmall: GoogleFonts.firaCode(),
+              titleMedium: GoogleFonts.firaCode(),
+              titleLarge: GoogleFonts.firaCode(),
+            )),
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         initialRoute: DogListScreen.routePath,

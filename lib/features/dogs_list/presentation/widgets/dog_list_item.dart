@@ -19,14 +19,19 @@ class DogListItem extends StatelessWidget {
 
   /// handles title of the row (eg. dog breed)
   final String title;
+
   /// handles leading icon image of row
   final String imgSrc;
+
   /// height of row item
   final double? height;
+
   /// handles styling of [title]
   final TextStyle? titleStyle;
+
   /// handles callback for what to happen when random Image action icon is pressed
   final VoidCallback? onRandomImagePress;
+
   /// handles callback for what to happen when Image list action icon is pressed
   final VoidCallback? onImageListPress;
   final EdgeInsetsGeometry actionPadding;
@@ -35,7 +40,6 @@ class DogListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return SizedBox(
       height: height,
       child: Row(
@@ -44,7 +48,8 @@ class DogListItem extends StatelessWidget {
           SizedBox(width: Insets.xs),
           Text(
             StringHelper.capitalizeFirstLetter(title),
-            style: titleStyle ?? Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18),
+            style: titleStyle ??
+                Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18),
           ),
           const Spacer(),
           Padding(
@@ -72,6 +77,7 @@ class DogListItemActions extends StatelessWidget {
 
   /// handles callback for what to happen when random Image action icon is pressed
   final VoidCallback? onRandomImagePress;
+
   /// handles callback for what to happen when Image list action icon is pressed
   final VoidCallback? onImageListPress;
 
@@ -85,7 +91,7 @@ class DogListItemActions extends StatelessWidget {
           child: IconButton(
             onPressed: onRandomImagePress,
             padding: EdgeInsets.zero,
-            icon: const Icon(Icons.photo_outlined),
+            icon: const Icon(Icons.monochrome_photos, color: Color(0xFF425A58)),
           ),
         ),
         SizedBox(width: Insets.sm),
@@ -95,7 +101,7 @@ class DogListItemActions extends StatelessWidget {
           child: IconButton(
             onPressed: onImageListPress,
             padding: EdgeInsets.zero,
-            icon: const Icon(Icons.camera),
+            icon: const Icon(Icons.auto_awesome, color: Colors.purple),
           ),
         ),
       ],

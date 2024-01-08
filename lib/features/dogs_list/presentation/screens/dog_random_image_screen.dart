@@ -108,11 +108,13 @@ class _DogRandomImageScreenState extends ConsumerState<DogRandomImageScreen> {
         },
         error: (error, stackTrace) {
           //TODO:: parse and present error in a proper way
-          return ErrorHandler(
-            message: error.toString(),
-            handler: () {
-              fetchRandomImageOfDog();
-            },
+          return Center(
+            child: ErrorHandler(
+              message: error.toString(),
+              handler: () {
+                fetchRandomImageOfDog();
+              },
+            ),
           );
         },
         loading: () {

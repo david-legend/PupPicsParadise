@@ -143,11 +143,13 @@ class _DogListScreenState extends ConsumerState<DogListScreen> {
           );
         },
         error: (error, stacktrace) {
-          return ErrorHandler(
-            message: (error as Failure).message,
-            handler: () {
-              fetchAllDogBreeds();
-            },
+          return Center(
+            child: ErrorHandler(
+              message: (error as Failure).message,
+              handler: () {
+                fetchAllDogBreeds();
+              },
+            ),
           );
         },
         loading: () {

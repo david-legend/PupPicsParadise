@@ -63,7 +63,9 @@ enum DataSource {
 
 extension DataSourceExtension on DataSource {
   Failure getFailure() {
-    var mContext = navigatorKey!.currentState!.context;
+
+    print("HERE:: ${navigatorKey.currentState}");
+    var mContext = navigatorKey.currentState!.context;
     switch (this) {
       case DataSource.success:
         return Failure(

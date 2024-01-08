@@ -20,7 +20,7 @@ void main() {
   );
 }
 
-GlobalKey<NavigatorState>? navigatorKey = GlobalKey<NavigatorState>();
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
     return Builder(builder: (lContext) {
       return MaterialApp(
         title: AppStrings.appName,
+        navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),

@@ -98,11 +98,13 @@ class _DogImageListScreenState extends ConsumerState<DogImageListScreen> {
         },
         error: (error, stackTrace) {
           //TODO:: parse and present error in a proper way
-          return ErrorHandler(
-            message: error.toString(),
-            handler: () {
-              fetchDogImageList();
-            },
+          return Center(
+            child: ErrorHandler(
+              message: error.toString(),
+              handler: () {
+                fetchDogImageList();
+              },
+            ),
           );
         },
         loading: () {

@@ -74,6 +74,6 @@ The app uses the domain driven design approach. This architecture comprises four
 This app uses Riverpod as its state management and Dio for networking calls.
 Below are links to docs
 
-![Riverpod Docs](https://riverpod.dev/docs/introduction/getting_started)
-![Riverpod Ultimate Guide](https://codewithandrea.com/articles/flutter-state-management-riverpod/)
-![Dio Docs](https://pub.dev/documentation/dio/latest/)
+- <a href="https://riverpod.dev/docs/introduction/getting_started" target="_blank">Riverpod Docs</a>
+- <a href="https://codewithandrea.com/articles/flutter-state-management-riverpod/" target="_blank">Riverpod Ultimate Guide</a>
+- <a href="https://pub.dev/documentation/dio/latest/" target="_blank">Dio Docs</a>

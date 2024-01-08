@@ -5,7 +5,7 @@
 </h1>
 
 <p align="center">
-    PupPic Paradise is a handy app that is used to view random images and image list of Dogs based on their selected breeds and subBreeds.
+    PupPic Paradise is a handy app that is used to view random images and image list of Dogs based on the selected breeds and subBreeds.
 </p>
 
 <br/>
@@ -14,7 +14,7 @@
 
 - Clone the repository from github
 - Assuming you already have flutter installed, Run `flutter pub get` at the root of the project
-- If you don't have flutter installed, visit ![Install flutter](https://docs.flutter.dev/get-started/install) and follow instructions
+- If you don't have flutter installed, visit <a href="https://docs.flutter.dev/get-started/install" target="_blank">Install flutter</a> and follow instructions
 - Connect your physical device or emulator and run the application.
 - 🎊🥳
 

@@ -9,7 +9,8 @@ part 'dog_list_controller.g.dart';
 class DogListController extends _$DogListController {
   @override
   FutureOr<AllDogBreeds> build() async {
-    return const AllDogBreeds();
+    state = const AsyncData(AllDogBreeds());
+    return state.value! ;
   }
 
   /// makes call through the repository to fetch all dog breeds

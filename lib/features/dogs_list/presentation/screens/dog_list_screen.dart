@@ -36,7 +36,7 @@ class DogListScreen extends ConsumerStatefulWidget {
 }
 
 class _DogListScreenState extends ConsumerState<DogListScreen> {
-  late AsyncValue<AllDogBreeds> allDogBreedsResult;
+  // late AsyncValue<AllDogBreeds> allDogBreedsResult;
 
   @override
   void initState() {
@@ -67,7 +67,7 @@ class _DogListScreenState extends ConsumerState<DogListScreen> {
         EdgeInsets.only(left: 12, top: 8, bottom: 8, right: 10);
     const subBreedPadding =
         EdgeInsets.only(left: 12, top: 8, bottom: 8, right: 50);
-    allDogBreedsResult = ref.watch(dogListControllerProvider);
+    final allDogBreedsResult = ref.watch(dogListControllerProvider);
 
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
@@ -95,8 +95,10 @@ class _DogListScreenState extends ConsumerState<DogListScreen> {
               final dogBreed = data.breeds.keys.elementAt(index);
               final subBreeds = data.breeds[dogBreed] ?? [];
               final dogType = DogType(breed: dogBreed);
+
               return Card(
                 child: ExpansionTile(
+                    key: Key(dogBreed),
                     trailing:
                         subBreeds.isEmpty ? const SizedBox.shrink() : null,
                     tilePadding: breedPadding,

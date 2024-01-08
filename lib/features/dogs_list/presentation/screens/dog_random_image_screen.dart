@@ -78,23 +78,30 @@ class _DogRandomImageScreenState extends ConsumerState<DogRandomImageScreen> {
           if (data.image != null && data.image!.isNotEmpty) {
             return Stack(
               children: [
-                CachedNetworkImage(
-                  imageUrl: data.image!,
-                  width: screenWidth,
-                  height: screenHeight,
-                  fit: BoxFit.fitHeight,
-                  progressIndicatorBuilder: (context, url, downloadProgress) {
-                    return Center(
-                      child: SizedBox(
-                        width: progressIndicatorSize,
-                        height: progressIndicatorSize,
-                        child: CircularProgressIndicator(
-                          value: downloadProgress.progress,
+                InteractiveViewer(
+                  panEnabled: true,
+
+                  minScale: 0.5,
+                  maxScale: 1.6,
+                  panAxis: PanAxis.horizontal,
+                  child: CachedNetworkImage(
+                    imageUrl: data.image!,
+                    width: screenWidth,
+                    height: screenHeight,
+                    fit: BoxFit.cover,
+                    progressIndicatorBuilder: (context, url, downloadProgress) {
+                      return Center(
+                        child: SizedBox(
+                          width: progressIndicatorSize,
+                          height: progressIndicatorSize,
+                          child: CircularProgressIndicator(
+                            value: downloadProgress.progress,
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                      );
+                    },
+                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                  ),
                 ),
               ],
             );

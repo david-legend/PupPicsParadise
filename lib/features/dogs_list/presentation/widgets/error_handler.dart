@@ -1,6 +1,7 @@
 import 'package:dog_images/config/values/values.dart';
 import 'package:flutter/material.dart';
 
+/// handles and shows errors - allows you to retry
 class ErrorHandler extends StatelessWidget {
   const ErrorHandler({
     super.key,
@@ -9,8 +10,13 @@ class ErrorHandler extends StatelessWidget {
     this.handler,
   });
 
-  final VoidCallback? handler;
+  /// shows error message
   final String message;
+
+  /// callback to handle to retry the failed action
+  final VoidCallback? handler;
+
+  /// styling for [message]
   final TextStyle? messageStyle;
 
   @override

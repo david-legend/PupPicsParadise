@@ -1,5 +1,7 @@
 part of values;
 
+
+/// colors used across the app
 class AppColors {
   // Background Colors
   static const background = Color(0xFFF9F5ED);

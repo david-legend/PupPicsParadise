@@ -7,6 +7,8 @@ abstract class NetworkInfo {
   Future<bool> get isConnected;
 }
 
+
+/// For checking if there's internet
 class NetworkInfoImpl extends NetworkInfo {
   final InternetConnectionChecker _internetConnectionChecker;
 

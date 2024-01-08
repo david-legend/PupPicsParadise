@@ -1,3 +1,5 @@
+
+/// handles helper methods for strings
 class StringHelper {
 
   static String capitalizeFirstLetter(String input) {

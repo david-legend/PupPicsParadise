@@ -1,5 +1,6 @@
 part of values;
 
+/// Paths to image assets used across the app
 class Images {
   static const String icLogo = 'assets/images/logo.png';
   static const String icDog = 'assets/images/dog_icon.png';

@@ -8,6 +8,7 @@ import 'package:dog_images/features/dogs_list/presentation/widgets/error_handler
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/// [DogRandomImageScreen] renders random images of dogs breeds and subBreeds which is fetched from API
 class DogRandomImageScreen extends ConsumerStatefulWidget {
   const DogRandomImageScreen({
     super.key,
@@ -32,6 +33,7 @@ class _DogRandomImageScreenState extends ConsumerState<DogRandomImageScreen> {
 
   @override
   void initState() {
+    /// makes initial call to fetch random image based on parameter passed in
     Future.microtask(() {
       fetchRandomImageOfDog();
     });
@@ -117,13 +119,16 @@ class _DogRandomImageScreenState extends ConsumerState<DogRandomImageScreen> {
     );
   }
 
+  /// sends an event which triggers a call to fetch a random image for dog breed or subBreed
   fetchRandomImageOfDog() {
     final data = widget.dogType;
     if (data.subBreed == null) {
+      /// makes call to fetch random dog Image By Breed
       ref
           .read(dogRandomImageControllerProvider.notifier)
           .getDogRandomImageByBreed(data.breed);
     } else {
+      /// makes call to fetch random dog Image By SubBreed
       ref
           .read(dogRandomImageControllerProvider.notifier)
           .getDogRandomImageBySubBreed(

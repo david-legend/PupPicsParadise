@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dog_list_controller.g.dart';
 
+/// controller for handling network calls to fetch all dog breeds and subBreeds
 @Riverpod(keepAlive: true)
 class DogListController extends _$DogListController {
   @override
@@ -13,6 +14,7 @@ class DogListController extends _$DogListController {
     return state.value ?? const AllDogBreeds();
   }
 
+  /// makes call through the repository to fetch all dog breeds
   Future<void> getAllDogBreeds() async {
     state = const AsyncLoading();
 

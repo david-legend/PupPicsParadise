@@ -12,8 +12,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dog_images_repository.g.dart';
 
+/// Repository for connecting to data sources
 class DogImagesRepository {
+  /// checks for network connection
   final NetworkInfo _networkInfo;
+  /// connects repository to remote data source
   final DogImagesRemoteDataSource _dogImagesRemoteDataSource;
 
   DogImagesRepository(
@@ -21,6 +24,7 @@ class DogImagesRepository {
     this._dogImagesRemoteDataSource,
   );
 
+  /// gets all Dog Breeds
   Future<Either<Failure, AllDogBreeds>> getAllDogBreeds() async {
     if (await _networkInfo.isConnected) {
       try {
@@ -37,6 +41,7 @@ class DogImagesRepository {
     }
   }
 
+  /// gets Random Image of Dog By Breed
   Future<Either<Failure, RandomDogImage>> getDogRandomImageByBreed(
     String breed,
   ) async {
@@ -57,6 +62,7 @@ class DogImagesRepository {
     }
   }
 
+  /// gets Random Image of Dog By Breed and SubBreed
   Future<Either<Failure, RandomDogImage>> getDogRandomImageBySubBreed({
     required String breed,
     required String subBreed,
@@ -81,6 +87,8 @@ class DogImagesRepository {
     }
   }
 
+
+  /// gets Image list of Dogs By Breed
   Future<Either<Failure, DogImages>> getDogImageListByBreed(
     String breed,
   ) async {
@@ -101,6 +109,7 @@ class DogImagesRepository {
     }
   }
 
+  /// gets Image list of Dogs By Breed and SubBreed
   Future<Either<Failure, DogImages>> getDogImageListBySubBreed({
     required String breed,
     required String subBreed,

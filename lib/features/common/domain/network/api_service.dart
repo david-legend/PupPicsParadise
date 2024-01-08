@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'api_service.g.dart';
 
+/// Api Service for handling network calls
 class ApiService {
   final Dio _dio;
 

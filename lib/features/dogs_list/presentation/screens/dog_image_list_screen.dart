@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+/// [DogImageListScreen] renders dogs breeds and subBreeds imageList which is fetched from API
 class DogImageListScreen extends ConsumerStatefulWidget {
   const DogImageListScreen({
     super.key,
@@ -32,6 +33,7 @@ class _DogImageListScreenState extends ConsumerState<DogImageListScreen> {
 
   @override
   void initState() {
+    /// makes initial call to fetch imageList based on parameter passed in
     Future.microtask(() {
       fetchDogImageList();
     });
@@ -102,13 +104,16 @@ class _DogImageListScreenState extends ConsumerState<DogImageListScreen> {
     );
   }
 
+  /// sends an event which triggers a call to fetch either imageList for dog breed or subBreed
   void fetchDogImageList() {
     final data = widget.dogType;
     if (data.subBreed == null) {
+      /// makes call to fetch Dog Image List By Breed
       ref
           .read(dogImageListControllerProvider.notifier)
           .getDogImageListByBreed(data.breed);
     } else {
+      /// makes call to fetch Dog Image List By SubBreed
       ref
           .read(dogImageListControllerProvider.notifier)
           .getDogImageListBySubBreed(

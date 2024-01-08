@@ -4,24 +4,18 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dog_random_image_controller.g.dart';
 
+//// controller for handling network calls to fetch random images
 @riverpod
 class DogRandomImageController extends _$DogRandomImageController {
   @override
-  FutureOr<RandomDogImage> build(
-  //     {
-  //   required String breed,
-  //   String? subBreed,
-  // }
-  ) async {
+  FutureOr<RandomDogImage> build() async {
     state = const AsyncData(RandomDogImage());
-    // if (subBreed == null) {
-    //   await getDogRandomImageByBreed(breed);
-    // } else {
-    //   await getDogRandomImageBySubBreed(breed: breed, subBreed: subBreed);
-    // }
+
     return state.value ?? const RandomDogImage();
   }
 
+  /// makes call through the repository to
+  /// fetch random dog images based on their breed
   Future<void> getDogRandomImageByBreed(String breed) async {
     state = const AsyncLoading();
 
@@ -35,6 +29,8 @@ class DogRandomImageController extends _$DogRandomImageController {
     );
   }
 
+  /// makes call through the repository to
+  /// fetch random dog images based on their breed and subBreed
   Future<void> getDogRandomImageBySubBreed({
     required String breed,
     required String subBreed,

@@ -2,6 +2,7 @@ import 'package:dog_images/config/values/values.dart';
 import 'package:dog_images/utils/string_helper.dart';
 import 'package:flutter/material.dart';
 
+/// [DogListItem] renders row item for each dog breed or sub breed
 class DogListItem extends StatelessWidget {
   const DogListItem({
     super.key,
@@ -16,11 +17,17 @@ class DogListItem extends StatelessWidget {
     this.imageHeight = 40,
   });
 
+  /// handles title of the row (eg. dog breed)
   final String title;
+  /// handles leading icon image of row
   final String imgSrc;
+  /// height of row item
   final double? height;
+  /// handles styling of [title]
   final TextStyle? titleStyle;
+  /// handles callback for what to happen when random Image action icon is pressed
   final VoidCallback? onRandomImagePress;
+  /// handles callback for what to happen when Image list action icon is pressed
   final VoidCallback? onImageListPress;
   final EdgeInsetsGeometry actionPadding;
   final double imageWidth;
@@ -40,7 +47,6 @@ class DogListItem extends StatelessWidget {
             style: titleStyle ?? Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18),
           ),
           const Spacer(),
-
           Padding(
             padding: actionPadding,
             child: DogListItemActions(
@@ -54,6 +60,9 @@ class DogListItem extends StatelessWidget {
   }
 }
 
+const buttonSize = 30.0;
+
+/// [DogListItemActions] renders action buttons that are used to view dog images
 class DogListItemActions extends StatelessWidget {
   const DogListItemActions({
     super.key,
@@ -61,7 +70,9 @@ class DogListItemActions extends StatelessWidget {
     this.onRandomImagePress,
   });
 
+  /// handles callback for what to happen when random Image action icon is pressed
   final VoidCallback? onRandomImagePress;
+  /// handles callback for what to happen when Image list action icon is pressed
   final VoidCallback? onImageListPress;
 
   @override
@@ -69,8 +80,8 @@ class DogListItemActions extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: 30,
-          height: 30,
+          width: buttonSize,
+          height: buttonSize,
           child: IconButton(
             onPressed: onRandomImagePress,
             padding: EdgeInsets.zero,
@@ -79,8 +90,8 @@ class DogListItemActions extends StatelessWidget {
         ),
         SizedBox(width: Insets.sm),
         SizedBox(
-          width: 30,
-          height: 30,
+          width: buttonSize,
+          height: buttonSize,
           child: IconButton(
             onPressed: onImageListPress,
             padding: EdgeInsets.zero,

@@ -1,6 +1,6 @@
 part of values;
 
-
+/// Common Insets used across apps
 class Insets {
   static double scale = 1;
   static double offsetScale = 1;

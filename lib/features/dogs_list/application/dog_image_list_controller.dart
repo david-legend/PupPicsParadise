@@ -4,6 +4,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dog_image_list_controller.g.dart';
 
+/// controller for handling network calls to
+/// fetch image list of dogs based on their breed and subBreeds
 @riverpod
 class DogImageListController extends _$DogImageListController {
   @override
@@ -13,6 +15,8 @@ class DogImageListController extends _$DogImageListController {
     return state.value ?? const DogImages();
   }
 
+  /// makes call through the repository to
+  /// fetch dog image list based on their breed
   Future<void> getDogImageListByBreed(String breed) async {
     state = const AsyncLoading();
 
@@ -26,6 +30,8 @@ class DogImageListController extends _$DogImageListController {
     );
   }
 
+  /// makes call through the repository to
+  /// fetch dog image list based on their breed and subBreed
   Future<void> getDogImageListBySubBreed({
     required String breed,
     required String subBreed,

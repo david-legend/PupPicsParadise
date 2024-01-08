@@ -9,11 +9,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dog_images_remote_data_source.g.dart';
 
+/// responsible for making the actual network call to the api
 class DogImagesRemoteDataSource {
+  /// encapsulates all networks calls
   final ApiService _apiService;
 
   DogImagesRemoteDataSource(this._apiService);
 
+  /// makes network call to API to fetch all breeds
   Future<AllDogBreedsDto> getAllDogBreeds() async {
     try {
       final response = await _apiService.get(endPoint: Api.allBreeds);
@@ -30,6 +33,7 @@ class DogImagesRemoteDataSource {
     }
   }
 
+  /// makes network call to API to fetch random image by breed
   Future<DogRandomImageDto> getDogRandomImageByBreed(String breed) async {
     try {
       final response =
@@ -48,6 +52,7 @@ class DogImagesRemoteDataSource {
     }
   }
 
+  /// makes network call to API to fetch image list by breed
   Future<DogImagesLisDto> getDogImageListByBreed(String breed) async {
     try {
       final response =
@@ -66,6 +71,7 @@ class DogImagesRemoteDataSource {
     }
   }
 
+  /// makes network call to API to fetch random image by breed and subBreed
   Future<DogRandomImageDto> getDogRandomImageBySubBreed({
     required String breed,
     required String subBreed,
@@ -88,6 +94,7 @@ class DogImagesRemoteDataSource {
     }
   }
 
+  /// makes network call to API to fetch image list by breed and subBreed
   Future<DogImagesLisDto> getDogImageListBySubBreed({
     required String breed,
     required String subBreed,
